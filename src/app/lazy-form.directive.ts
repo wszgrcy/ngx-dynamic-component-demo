@@ -3,7 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { fromEvent, Subject } from 'rxjs';
 import { take, filter, map } from 'rxjs/operators';
 @Directive({
-  selector: 'custom-libwc[ngModel]',
+  selector: `custom-libwc[ngModel],custom-libwc[formControlName]:not([ngModel])`,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

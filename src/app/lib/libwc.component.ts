@@ -26,7 +26,6 @@ export class LibwcComponent implements OnInit, ControlValueAccessor {
   value;
   disabled = false;
   constructor() {
-    console.log('函数构造');
     this.componentIsLoaded.next(this);
   }
 
