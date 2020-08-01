@@ -30,4 +30,6 @@
 - 通过指令的中转,在需要懒加载的组件中加入一个**事件(componentIsLoaded)**,在初始化时发射事件,值为**这个组件的实例(this)**,通过拿到实例,将自定义表达控件相关的实现方法手动设置逻辑
 
 ## 代码地址
-[地址](https://github.com/wszgrcy/ngx-dynamic-component-demo)
+- [地址](https://github.com/wszgrcy/ngx-dynamic-component-demo)
+- 此项技术过于吓人,所以在`stackblitz`无法查看到,如果想单纯在线看代码[点击这里](https://stackblitz.com/github/wszgrcy/ngx-dynamic-component-demo)
+- [gh-pages查看效果](https://wszgrcy.github.io/ngx-dynamic-component-demo/)
