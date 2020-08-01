@@ -1,14 +1,7 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  SimpleChanges,
-  Input,
-} from '@angular/core';
-import { NgElementConstructor } from '@angular/elements';
+import { Directive, ElementRef, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { fromEvent, BehaviorSubject, Subject } from 'rxjs';
-import { take, filter, map, takeWhile } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { take, filter, map } from 'rxjs/operators';
 @Directive({
   selector: 'custom-libwc[ngModel]',
   providers: [
@@ -20,37 +13,53 @@ import { take, filter, map, takeWhile } from 'rxjs/operators';
   ],
 })
 export class LazyFormDirective implements ControlValueAccessor {
-  onChange;
-  onTouched;
+  onChange: (arg) => void;
+  onTouched: (arg) => void;
   instance: ControlValueAccessor;
   writeValue$ = new Subject();
+  onChange$ = new Subject<(arg) => void>();
+  onTouched$ = new Subject<(arg) => void>();
+
   value = [];
   constructor(private elementRef: ElementRef<HTMLElement>) {
     this.waitComponentLoaded().then((component) => {
-      console.log('组件加载完成');
       this.instance = component;
-      this.instance.registerOnChange(this.onChange);
-      this.instance.registerOnTouched(this.onTouched);
+      this.onChange$.next(this.onChange);
+      this.onTouched$.next(this.onTouched);
       this.value.forEach((e) => {
         this.writeValue$.next(e);
       });
     });
-    this.writeValue$.pipe().subscribe((value) => {
-      // console.log('通知值变更')
+    this.writeValue$.subscribe((value) => {
       if (this.instance) {
         this.instance.writeValue(value);
       } else {
         this.value.push(value);
       }
     });
+    this.onChange$.pipe(filter(Boolean)).subscribe((e: (arg) => void) => {
+      if (this.instance) {
+        this.instance.registerOnChange(e);
+        this.onChange$.complete();
+      } else {
+        this.onChange = e;
+      }
+    });
+    this.onTouched$.pipe(filter(Boolean)).subscribe((e: (arg) => void) => {
+      if (this.instance) {
+        this.instance.registerOnTouched(e);
+        this.onTouched$.complete();
+      } else {
+        this.onTouched = e;
+      }
+    });
   }
 
   registerOnChange(fn): void {
-    console.log('change注册', fn);
-    this.onChange = fn;
+    this.onChange$.next(fn);
   }
   registerOnTouched(fn): void {
-    this.onTouched = fn;
+    this.onTouched$.next(fn);
   }
   writeValue(value): void {
     this.writeValue$.next(value);

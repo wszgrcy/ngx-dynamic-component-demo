@@ -19,9 +19,9 @@ export class LazyLoadDirective {
     private injector: Injector,
     private compiler: Compiler
   ) {
-    this.viewContainerRef.createEmbeddedView(this.templateRef);
     import('libwc').then((e) => {
       e.LibwcModule.loadComponent(this.injector, this.compiler);
+      this.viewContainerRef.createEmbeddedView(this.templateRef);
     });
   }
 }
