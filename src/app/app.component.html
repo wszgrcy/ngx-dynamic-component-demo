@@ -1,0 +1,6 @@
+<ng-container *ngIf="loaded">
+  <custom-libwc [title]="'324234'" (libOutput)="call($event)"  [(ngModel)]="value" (ngModelChange)="valueChange($event)" *lazyLoad ></custom-libwc>
+
+</ng-container>
+
+<button (click)="loaded=true">loading</button>
