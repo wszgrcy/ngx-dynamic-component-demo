@@ -4,6 +4,8 @@
   <form [formGroup]="formGroup">
     <custom-libwc [title]="'响应式'" *lazyLoad="'libwc'" formControlName="lazy"></custom-libwc>
   </form>
+  <!-- 显式指令lazyLoadFormControl实现自定义表达控件 -->
+  <custom-libwc2 [title]="'使用显式指令'" *lazyLoad="'libwc2'" lazyLoadFormControl [(ngModel)]="value2"></custom-libwc2>
 </ng-container>
 
 <button (click)="loaded=true">loading</button>

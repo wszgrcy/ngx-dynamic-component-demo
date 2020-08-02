@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  value2 = '显示指令';
   loaded = false;
   value = '传入值';
   formGroup = this.fb.group({
