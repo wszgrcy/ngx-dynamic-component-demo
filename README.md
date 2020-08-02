@@ -33,3 +33,5 @@
 - [地址](https://github.com/wszgrcy/ngx-dynamic-component-demo)
 - 此项技术过于吓人,所以在`stackblitz`无法查看到,如果想单纯在线看代码[点击这里](https://stackblitz.com/github/wszgrcy/ngx-dynamic-component-demo)
 - [gh-pages查看效果](https://wszgrcy.github.io/ngx-dynamic-component-demo/)
+## 封装实现
+- 切换至`use-cyia-ngx-common`可以查看封装实现
