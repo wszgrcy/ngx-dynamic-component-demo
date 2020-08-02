@@ -33,3 +33,35 @@
 - [地址](https://github.com/wszgrcy/ngx-dynamic-component-demo)
 - 此项技术过于吓人,所以在`stackblitz`无法查看到,如果想单纯在线看代码[点击这里](https://stackblitz.com/github/wszgrcy/ngx-dynamic-component-demo)
 - [gh-pages查看效果](https://wszgrcy.github.io/ngx-dynamic-component-demo/)
+## 使用
+```ts
+@NgModule({
+  imports: [
+    LazyLoadModule.forRoot([
+      [
+        'libwc',//lazyLoad结构型指令请求加载时传入的健名
+        (injector, compiler) =>
+          import('libwc').then((e) =>//准备加载哪个模块,这里是通过tsconfig指定的路径映射,也可以直接使用相对路径
+            createWebComponent(//创建web-component组件,封装的便捷方法,module需要有属性entry赋值为需要创建的组件
+              injector,
+              compiler,
+              e.LibwcModule,
+              'custom-libwc'// 页面上要写标签名
+            )
+          ),
+      ],
+    ]),
+  ],
+
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],//自定义元素
+})
+export class AppModule {}
+
+
+```
+```html
+<!-- 这里使用的是非显示指令实现的的 -->
+    <custom-libwc *lazyLoad="'libwc'" formControlName="lazy"></custom-libwc>
+<!-- 和上面的等同,为显示指令 -->
+      <custom-libwc  *lazyLoad="'libwc'" lazyLoadFormControl formControlName="lazy"></custom-libwc>
+```
