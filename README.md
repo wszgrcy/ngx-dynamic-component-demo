@@ -60,8 +60,8 @@ export class AppModule {}
 
 ```
 ```html
-<!-- 这里使用的是非显示指令实现的的 -->
+<!-- 这里使用的是非显示指令实现的的,可查看lazy-form.directive.ts文件 -->
     <custom-libwc *lazyLoad="'libwc'" formControlName="lazy"></custom-libwc>
-<!-- 和上面的等同,为显示指令 -->
+<!-- 和上面的等同,为显示指令,引入模块自带 -->
       <custom-libwc  *lazyLoad="'libwc'" lazyLoadFormControl formControlName="lazy"></custom-libwc>
 ```
